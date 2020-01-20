@@ -110,7 +110,7 @@ def restore(date_id):
             db = alchemy.db()
             for row in alchemy.parse_data(contents):
                 try:
-                    db.session.merge(row)
+                    db.session.merge(row)  # 使用了 db.session.merge
                     db.session.commit()
                 except (IntegrityError, InvalidRequestError):
                     db.session.rollback()

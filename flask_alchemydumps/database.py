@@ -34,10 +34,12 @@ class AlchemyDumpsDatabase(object):
         data = dict()
         for model in self.get_mapped_classes():
             query = db.session.query(model)
+            # 使用了 sqlalchemy.ext.serializer.dumps
             data[model.__name__] = dumps(query.all())
         return data
 
     def parse_data(self, contents):
         """Loads a dump and convert it into rows """
         db = self.db()
+        # 使用了 sqlalchemy.ext.serializer.loads
         return loads(contents, db.metadata, db.session)
